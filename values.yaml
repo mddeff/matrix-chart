@@ -458,7 +458,7 @@ mail:
 
   # Exim relay
   relay:
-    enabled: true
+    enabled: false
     image:
       repository: "devture/exim-relay"
       tag: "4.93.1-r0"
