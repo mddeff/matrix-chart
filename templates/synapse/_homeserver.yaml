@@ -601,9 +601,12 @@ database:
         user: "{{ .Values.postgresql.username }}"
         password: "{{ .Values.postgresql.password }}"
         database: "{{ .Values.postgresql.database }}"
-        
         {{- if .Values.postgresql.enabled }}
+        {{- if .Values.postgresql.hostname }}
         host: "{{ .Values.postgresql.hostname }}"
+        {{- else }}
+        host: "{{ .Release.Name }}-postgresql"
+        {{- end }}
         port: "5432"
         {{- else }}
         host: "{{ .Values.postgresql.hostname }}"
