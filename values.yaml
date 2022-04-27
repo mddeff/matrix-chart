@@ -277,7 +277,7 @@ postgresql:
 synapse:
   image:
     repository: "matrixdotorg/synapse"
-    tag: v1.22.1
+    tag: v1.57.1
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -374,8 +374,8 @@ riot:
 
   # Element Kubernetes resource settings
   image:
-    repository: "vectorim/riot-web"
-    tag: v1.7.12
+    repository: "vectorim/element-web"
+    tag: v1.10.10
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -461,7 +461,7 @@ mail:
     enabled: false
     image:
       repository: "devture/exim-relay"
-      tag: "4.93.1-r0"
+      tag: "4.95-r0-2"
       pullPolicy: IfNotPresent
     service:
       type: ClusterIP
