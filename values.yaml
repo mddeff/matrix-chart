@@ -513,7 +513,7 @@ bridges:
 
     image:
       repository: "matrixdotorg/matrix-appservice-irc"
-      tag: "release-0.22.0-rc1"
+      tag: "release-0.34.0"
       pullPolicy: IfNotPresent
     replicaCount: 1
     resources: {}
@@ -598,14 +598,14 @@ bridges:
       storageClass: ""
 
     image:
-      repository: "dock.mau.dev/tulir/mautrix-whatsapp"
-      tag: "latest"
+      repository: "dock.mau.dev/mautrix/whatsapp"
+      tag: "v0.6.1"
       pullPolicy: Always
     replicaCount: 1
     resources: {}
     service:
       type: ClusterIP
-      port: 29318
+      port: 29334
 
   discord:
     # Set to true to enable the Discord bridge

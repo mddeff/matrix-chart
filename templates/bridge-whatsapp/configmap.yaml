@@ -22,7 +22,7 @@ data:
 
       # The hostname and port where this appservice should listen.
       hostname: 0.0.0.0
-      port: 29318
+      port: {{ .Values.bridges.whatsapp.service.port }}
 
       # Database config.
       database:

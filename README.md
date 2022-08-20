@@ -66,3 +66,16 @@ GPG signatures are available within the chart repo and can be found by appending
 These GPG signatures are signed with the same PGP key that is used to sign commits in this Git repository. The key is available by searching for david@typokign.com on a public keyserver, or by downloading it from my website at https://typokign.com/key.gpg.
 
 If you find any security vulnerabilities in this Helm chart, please contact me by sending a PGP-encrypted email (encrypted to `F13C346C0DE56944`) to david@typokign.com. Vulnerabilities in upstream services should be reported to that service's developers.
+
+
+## TODO
+- [ ] Test exim
+- [ ] Test coturn
+- [ ] Test discord bridge
+- [ ] test irc bridge
+- [ ] test whatsapp bridge
+- [ ] add matrix admin web service
+- [ ] implement signal bridge
+- [ ] implement google chat bridge
+- [ ] implement slack bridge
+- [ ] implement facebook bridge
