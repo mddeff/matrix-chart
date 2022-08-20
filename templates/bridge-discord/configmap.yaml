@@ -34,13 +34,25 @@ data:
       disableReadReceipts: {{ not .Values.bridges.discord.readReceipt }}
       # Disable Join Leave echos from matrix
       disableJoinLeaveNotifications: {{ not .Values.bridges.discord.joinLeaveEvents }}
+      # Disable Invite echos from matrix
+      disableInviteNotifications: {{ not .Values.bridges.discord.inviteNotifications }}
+      # Auto-determine the language of code blocks (this can be CPU-intensive)
+      determineCodeLanguage: {{ .Values.bridges.discord.determineCodeLanguage }}
+      # MXID of an admin user that will be PMd if the bridge experiences problems. Optional
+      adminMxid: {{ .Values.bridges.discord.bridgeAdminMxid }}
+      # The message to send to the bridge admin if the Discord token is not valid
+      invalidTokenMessage: {{ .Values.bridges.discord.invalidTokenMessage }}
+      
     # Authentication configuration for the discord bot.
     auth:
       clientID: {{ .Values.bridges.discord.auth.clientId | quote }}
       botToken: {{ .Values.bridges.discord.auth.botToken | quote }}
+      # You must enable "Privileged Gateway Intents" in your bot settings on discord.com (e.g. https://discord.com/developers/applications/12345/bot)
+      # for this to work
+      usePrivilegedIntents: {{ .Values.bridges.discord.auth.usePrivilegedIntents }}
     logging:
       # What level should the logger output to the console at.
-      console: "warn" #silly, verbose, info, http, warn, error, silent
+      console: {{ .Values.bridges.discord.logging | quote }} #silly, verbose, info, http, warn, error, silent
       lineDateFormat: "MMM-D HH:mm:ss.SSS" # This is in moment.js format
       files: []
     database:

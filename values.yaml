@@ -616,7 +616,12 @@ bridges:
     auth:
       clientId: ""
       botToken: ""
-
+      # You must enable "Privileged Gateway Intents" in your bot settings on discord.com (e.g. https://discord.com/developers/applications/12345/bot)
+      usePrivilegedIntents: false
+    
+    #silly, verbose, info, http, warn, error, silent
+    logging: "warn"
+    
     # The name of bridged rooms
     # Available vars:
     #   :guild - guild/server name
@@ -657,6 +662,18 @@ bridges:
     # Default visibility of bridged rooms (public/private)
     defaultVisibility: public
 
+    # Invite echos from matrix
+    inviteNotifications: true
+    
+    # Auto-determine the language of code blocks (this can be CPU-intensive)
+    determineCodeLanguage: false
+    
+    # MXID of an admin user that will be PMd if the bridge experiences problems. Optional
+    bridgeAdminMxid: '@admin:localhost'
+    
+    # The message to send to the bridge admin if the Discord token is not valid
+    invalidTokenMessage: 'Your Discord bot token seems to be invalid, and the bridge cannot function. Please update it in your bridge settings and restart the bridge'
+
     data:
       # Size of the PVC to allocate for the SQLite database
       capacity: 512Mi
@@ -664,8 +681,8 @@ bridges:
       storageClass: ""
 
     image:
-      repository: "halfshot/matrix-appservice-discord"
-      tag: "latest"
+      repository: "ghcr.io/matrix-org/matrix-appservice-discord"
+      tag: "v3.0.0"
       pullPolicy: Always
     replicaCount: 1
     resources: {}
