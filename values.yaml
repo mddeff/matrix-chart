@@ -266,7 +266,9 @@ postgresql:
 
   # If postgresql.enabled, stable/postgresql will run the scripts in templates/postgresql/initdb-configmap.yaml
   # If using an external Postgres server, make sure to configure the database as specified at https://github.com/matrix-org/synapse/blob/master/docs/postgres.md
-  initdbScriptsConfigMap: "{{ .Release.Name }}-postgresql-initdb"
+  primary:
+    initdb:
+      scriptsConfigMap: "{{ .Release.Name }}-postgresql-initdb"
 
   securityContext:
     enabled: true
