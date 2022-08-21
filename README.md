@@ -10,8 +10,8 @@ A Helm chart for deploying a Matrix homeserver stack in Kubernetes.
 - (Optional) Coturn TURN server for VoIP calls
 - (Optional) PostgreSQL cluster via stable/postgresql chart
 - (Optional) [matrix-org/matrix-appservice-irc](https://github.com/matrix-org/matrix-appservice-irc) IRC bridge
-- (Optional) [tulir/mautrix-whatsapp](https://github.com/tulir/mautrix-whatsapp) WhatsApp bridge
-- (Optional) [Half-Shot/matrix-appservice-discord](https://github.com/Half-Shot/matrix-appservice-discord) Discord bridge
+- (Optional) [matrix-org/matrix-appservice-discord](https://github.com/matrix-org/matrix-appservice-discord) Discord bridge
+- (Optional) [mautrix/whatsapp](https://github.com/mautrix/whatsapp) WhatsApp bridge
 - Fully configurable via values.yaml
 - Ingress definition for federated Synapse and Riot
 

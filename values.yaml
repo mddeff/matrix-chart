@@ -704,6 +704,107 @@ bridges:
     # set bridges.affinity (above) to true
     accessMode: ReadWriteMany
 
+
+  signal:
+    # Set to true to enable the signal bridge
+    enabled: false
+
+    # Username and display name of the signal bridge bot
+    bot:
+      username: "signalbot"
+      displayName: "signal bridge bot"
+      #avatar: "mxc://maunium.net/NeXNQarUbrlYBiPCpprYsRqr"
+
+    # Permissions for using the bridge.
+    # Permitted values:
+    #      relay - Allowed to be relayed through the bridge, no access to commands.
+    #       user - Use the bridge with puppeting.
+    #      admin - Use and administrate the bridge.
+    # Permitted keys:
+    #        * - All Matrix users
+    #   domain - All users on that homeserver
+    #     mxid - Specific user
+    permissions:
+      '*': relay
+      'example.com': user
+      '@admin:example.com': admin
+
+    # signal server connection settings
+    connection:
+      # signal server connection timeout (seconds)
+      timeout: 20
+      # Number of QR codes to store, essentially multiplying the connection timeout
+      qrRegenCount: 2
+      # Maximum number of connection attempts before failing
+      maxAttempts: 3
+      # Retry delay
+      # Negative numbers are exponential backoff: -connection_retry_delay + 1 + 2^attempts
+      retryDelay: -1
+      # Whether or not to notify the user when attempting to reconnect. Set to false to only report when maxAttempts has been reached
+      reportRetry: true
+
+    # Send notifications for incoming calls
+    callNotices: true
+
+    users:
+      # Username for signal users
+      # Evaluated as a template where {{ . }} is replaced with the phone number of the signal user
+      username: "signal_{userid}"
+
+      # Display name for signal users
+      # Evaluated as a template, with variables:
+      # {{.Notify}} - nickname set by the signal user
+      # {{.Jid}}    - phone number (international format)
+      # The following variables are also available, but will cause problems on multi-user instances:
+      # {{.Name}}   - display name from contact list
+      # {{.Short}}  - short display name from contact list
+      displayName: '{displayname} (Signal)'
+
+    # Display name for communities.
+    # A community will be automatically generated for each user using the bridge, and can be used to group signal chats together
+    # Evaluated as a template, with variables:
+    # {{.Localpart}} - MXID localpart
+    # {{.Server}}    - MXID server part of the user.
+    communityName: "signal_{{.Localpart}}={{.Server}}"
+
+    relaybot:
+      # Set to true to enable the relaybot and management room
+      enabled: false
+
+      # Management room for the relay bot where status notifications are posted
+      management: "!foo:example.com"
+
+      # Users to invite to the management room automatically
+      invites: []
+
+    data:
+      # Size of the PVC to allocate for the SQLite database
+      capacity: 1Gi
+      # Storage class (optional)
+      storageClass: ""
+    rootLoggingLevel: DEBUG
+    signald:
+      data:
+      # Size of the PVC to share the signald socket
+      capacity: 512Mi
+      # Storage class (optional)
+      storageClass: ""
+    metrics:
+      enabled: false
+      listen_port: 8000
+    image:
+      repository: "dock.mau.dev/mautrix/signal"
+      tag: "v0.3.0"
+      pullPolicy: Always
+    replicaCount: 1
+    resources: {}
+    service:
+      type: ClusterIP
+      port: 29328
+
+
+
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

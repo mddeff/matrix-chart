@@ -1,0 +1,17 @@
+{{- if .Values.bridges.signal.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "matrix.fullname" . }}-signald
+  labels:
+{{ include "matrix.labels" . | indent 4}}
+spec:
+  {{- if .Values.bridges.signal.signald.data.storageClass }}
+  storageClassName: {{ .Values.bridges.signal.signald.data.storageClass }}
+  {{- end }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.bridges.signal.signald.data.capacity }}
+{{- end }}

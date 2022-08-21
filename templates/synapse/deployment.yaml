@@ -76,7 +76,7 @@ spec:
               mountPath: /data/keys
             - name: media-store
               mountPath: /data/media_store
-            {{- if or .Values.bridges.whatsapp.enabled .Values.bridges.discord.enabled .Values.bridges.irc.enabled }}
+            {{- if or .Values.bridges.whatsapp.enabled .Values.bridges.discord.enabled .Values.bridges.irc.enabled .Values.bridges.signal.enabled }}
             - name: bridges
               mountPath: /bridges
               readOnly: true
@@ -126,7 +126,7 @@ spec:
         - name: media-store
           persistentVolumeClaim:
             claimName: {{ include "matrix.fullname" . }}-media-store
-        {{- if or .Values.bridges.whatsapp.enabled .Values.bridges.discord.enabled .Values.bridges.irc.enabled }}
+        {{- if or .Values.bridges.whatsapp.enabled .Values.bridges.discord.enabled .Values.bridges.irc.enabled .Values.bridges.signal.enabled }}
         - name: bridges
           persistentVolumeClaim:
             claimName: {{ include "matrix.fullname" . }}-bridges
