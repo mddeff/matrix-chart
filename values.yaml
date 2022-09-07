@@ -266,7 +266,9 @@ postgresql:
 
   # If postgresql.enabled, stable/postgresql will run the scripts in templates/postgresql/initdb-configmap.yaml
   # If using an external Postgres server, make sure to configure the database as specified at https://github.com/matrix-org/synapse/blob/master/docs/postgres.md
-  initdbScriptsConfigMap: "{{ .Release.Name }}-postgresql-initdb"
+  primary:
+    initdb:
+      scriptsConfigMap: "{{ .Release.Name }}-postgresql-initdb"
 
   securityContext:
     enabled: true
@@ -511,7 +513,7 @@ bridges:
 
     image:
       repository: "matrixdotorg/matrix-appservice-irc"
-      tag: "release-0.22.0-rc1"
+      tag: "release-0.34.0"
       pullPolicy: IfNotPresent
     replicaCount: 1
     resources: {}
@@ -596,14 +598,14 @@ bridges:
       storageClass: ""
 
     image:
-      repository: "dock.mau.dev/tulir/mautrix-whatsapp"
-      tag: "latest"
+      repository: "dock.mau.dev/mautrix/whatsapp"
+      tag: "v0.6.1"
       pullPolicy: Always
     replicaCount: 1
     resources: {}
     service:
       type: ClusterIP
-      port: 29318
+      port: 29334
 
   discord:
     # Set to true to enable the Discord bridge
@@ -614,7 +616,12 @@ bridges:
     auth:
       clientId: ""
       botToken: ""
-
+      # You must enable "Privileged Gateway Intents" in your bot settings on discord.com (e.g. https://discord.com/developers/applications/12345/bot)
+      usePrivilegedIntents: false
+    
+    #silly, verbose, info, http, warn, error, silent
+    logging: "warn"
+    
     # The name of bridged rooms
     # Available vars:
     #   :guild - guild/server name
@@ -655,6 +662,18 @@ bridges:
     # Default visibility of bridged rooms (public/private)
     defaultVisibility: public
 
+    # Invite echos from matrix
+    inviteNotifications: true
+    
+    # Auto-determine the language of code blocks (this can be CPU-intensive)
+    determineCodeLanguage: false
+    
+    # MXID of an admin user that will be PMd if the bridge experiences problems. Optional
+    bridgeAdminMxid: '@admin:localhost'
+    
+    # The message to send to the bridge admin if the Discord token is not valid
+    invalidTokenMessage: 'Your Discord bot token seems to be invalid, and the bridge cannot function. Please update it in your bridge settings and restart the bridge'
+
     data:
       # Size of the PVC to allocate for the SQLite database
       capacity: 512Mi
@@ -662,8 +681,8 @@ bridges:
       storageClass: ""
 
     image:
-      repository: "halfshot/matrix-appservice-discord"
-      tag: "latest"
+      repository: "ghcr.io/matrix-org/matrix-appservice-discord"
+      tag: "v3.0.0"
       pullPolicy: Always
     replicaCount: 1
     resources: {}
