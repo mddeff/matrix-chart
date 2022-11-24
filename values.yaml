@@ -279,7 +279,7 @@ postgresql:
 synapse:
   image:
     repository: "matrixdotorg/synapse"
-    tag: v1.57.1
+    tag: v1.68.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
